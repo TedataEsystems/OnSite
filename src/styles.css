@@ -1151,25 +1151,11 @@ textarea{
 .mat-list-base .mat-subheader{
   color:var(--forth-color)
 }
-/* mat-cell:first-of-type, mat-header-cell:first-of-type, mat-footer-cell:first-of-type {
-  padding-right: 24px;
-} */
-/* mat-cell:last-of-type, mat-header-cell:last-of-type, mat-footer-cell:last-of-type{
-  padding-left: 24px !important;
-} */
-/* mat-cell:last-of-type, mat-header-cell:last-of-type, mat-footer-cell:last-of-type {
-  padding-right: 0px !important;
-} */
-/* mat-cell:first-of-type, mat-header-cell:first-of-type, mat-footer-cell:first-of-type {
-   padding-left: 0px !important;
-} */
 
-.mat-paginator-range-label{
-  /* direction: ltr; */
-}
 .txt{
   text-shadow: 2px 2px 4px #82919b;
  }
  .ico{
   box-shadow: 2px 2px 4px #82919b;
  }
+

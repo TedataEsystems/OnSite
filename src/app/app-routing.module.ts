@@ -9,6 +9,7 @@ import { StoreComponent } from './component/setting/store/store.component';
 import { ErrorPageComponent } from './shared/component/error-page/error-page.component';
 import { LayoutComponent } from './shared/component/layout/layout.component';
 import { LoginComponent } from './shared/component/login/login.component';
+import { AuthGuard } from './shared/service/auth.guard';
 
 const routes: Routes = [
   {
@@ -18,34 +19,21 @@ const routes: Routes = [
   {
     path:'',
     component: LayoutComponent,
+    canActivate: [AuthGuard],
 
 
     children: [
       {
       path:'',
       component: DashboardComponent,
-
-    },
-    {
-      path:'history',
-      component:HistoryListComponent,
+      canActivate: [AuthGuard]
     },
     {
       path:'inventory',
-      component:InventoryComponent
+      component:InventoryComponent,
+      canActivate: [AuthGuard]
     },
-    {path:'store',
-    component:StoreComponent
 
-    },
-    {
-      path:'incoming',
-      component:IncomingComponent
-    },
-    {
-      path:'outgoing',
-      component:OutgoingComponent
-    }
   ]
 
 },

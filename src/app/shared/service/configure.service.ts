@@ -6,11 +6,13 @@ import { Router } from '@angular/router';
 })
 export class ConfigureService {
   public pIn:number=0;
-  constructor( private router: Router) { }
+  constructor( private router: Router) {
+
+   }
 
   UserName()
    {
-       return  localStorage.getItem("usernam");
+       return  localStorage.getItem("userName");
    }
 
    UserGroup()
@@ -19,7 +21,7 @@ export class ConfigureService {
    }
    UserToken()
    {
-       return localStorage.getItem("tokNum");
+       return localStorage.getItem("token");
    }
 
    IsAuthentecated()
@@ -32,12 +34,12 @@ export class ConfigureService {
 
    Logout()
    {
-  
-   
+
+
     localStorage.removeItem("userGroup");
-    localStorage.removeItem("tokNum");
-    localStorage.removeItem("usernam");
+    localStorage.removeItem("token");
+    localStorage.removeItem("userName");
     this.router.navigateByUrl('/login');
-    
+
    }
 }

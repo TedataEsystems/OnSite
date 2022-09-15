@@ -4,14 +4,14 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Login } from 'src/app/Model/login';
 import { IUser } from 'src/app/Model/iuser';
+import { ConfigureService } from './configure.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
-
-  constructor(private httpClient:HttpClient) { }
-
+  constructor(private httpClient: HttpClient) {
+  }
 
   getLogin(model: Login):Observable<IUser>
   {

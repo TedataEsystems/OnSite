@@ -1,5 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { AccountService } from 'src/app/services/account.service';
 import { NotificationMsgService } from 'src/app/services/notification-msg.service';
 
@@ -10,34 +11,22 @@ import { NotificationMsgService } from 'src/app/services/notification-msg.servic
 })
 export class HeaderComponent implements OnInit {
 
- 
+
   @Output() public sidenavToggle = new EventEmitter();
   //constructor(private router :Router) { }
-constructor( private router :Router,private accountService : AccountService,private notificationService:NotificationMsgService) { }
+constructor( private router :Router,private accountService : AccountService,private notificationService:ToastrService) { }
 UserName:any="";
 ngOnInit(): void {
-// this.UserName=this.conser.UserName();
+ this.UserName=localStorage.getItem('userName');
 }
 
-// logOut(){
-//   // localStorage.clear();
-//   // this.accountService.logout().subscribe(res=>{
-//     // this.conser.Logout();
-//     this.router.navigateByUrl('/login');
-    
-//   // } 
-  
-//   // ,error=>{this.notificationService.warn('occured an error ')}
-//   // );
-
-// }
 
 logOut(){
   localStorage.clear();
   this.accountService.logout().subscribe(res=>{
     this.router.navigateByUrl('/login');
-  } 
-  ,error=>{this.notificationService.warn('occured an error ')}
+  }
+  ,error=>{this.notificationService.error('An Error Occured ')}
   );
 
 }
