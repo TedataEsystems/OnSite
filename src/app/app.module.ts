@@ -10,7 +10,6 @@ import { LoginModule } from './shared/Module/login/login.module';
 import { ToastrModule } from 'ngx-toastr';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { ChartsModule } from 'ng2-charts';
-import { AccountService } from './services/account.service';
 
 
 
@@ -42,7 +41,7 @@ import { AccountService } from './services/account.service';
       preventDuplicates: true,
     }),
   ],
-  providers: [AccountService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

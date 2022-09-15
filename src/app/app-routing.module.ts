@@ -12,49 +12,48 @@ import { LoginComponent } from './shared/component/login/login.component';
 
 const routes: Routes = [
   {
-    path: 'login',
-    component: LoginComponent,
-  },
+    path:'login',
+  component:LoginComponent,
+ },
   {
-    path: '',
+    path:'',
     component: LayoutComponent,
 
 
     children: [
       {
-        path: '',
-        component: DashboardComponent,
+      path:'',
+      component: DashboardComponent,
 
-      },
-      {
-        path: 'history',
-        component: HistoryListComponent,
-      },
-      {
-        path: 'inventory',
-        component: InventoryComponent
-      },
-      {
-        path: 'store',
-        component: StoreComponent
+    },
+    {
+      path:'history',
+      component:HistoryListComponent,
+    },
+    {
+      path:'inventory',
+      component:InventoryComponent
+    },
+    {path:'store',
+    component:StoreComponent
 
-      },
-      {
-        path: 'incoming',
-        component: IncomingComponent
-      },
-      {
-        path: 'outgoing',
-        component: OutgoingComponent
-      }
-    ]
+    },
+    {
+      path:'incoming',
+      component:IncomingComponent
+    },
+    {
+      path:'outgoing',
+      component:OutgoingComponent
+    }
+  ]
 
-  },
-  {
-    path: '**',
-    pathMatch: 'full',
-    component: ErrorPageComponent,
-  },
+},
+{
+  path:'**',
+ pathMatch: 'full',
+component:ErrorPageComponent,
+},
 ];
 
 @NgModule({

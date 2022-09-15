@@ -30,14 +30,14 @@ export class ConfigureService {
      }
    }
 
-  //  Logout()
-  //  {
+   Logout()
+   {
   
    
-  //   localStorage.removeItem("userGroup");
-  //   localStorage.removeItem("tokNum");
-  //   localStorage.removeItem("usernam");
-  //   this.router.navigateByUrl('/login');
+    localStorage.removeItem("userGroup");
+    localStorage.removeItem("tokNum");
+    localStorage.removeItem("usernam");
+    this.router.navigateByUrl('/login');
     
-  //  }
+   }
 }

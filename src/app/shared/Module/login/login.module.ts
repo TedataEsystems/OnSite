@@ -1,22 +1,25 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LoginComponent } from '../../component/login/login.component';
-import { MaterialModule } from '../material/material.module';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserModule, Title } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
- 
+import { ReactiveFormsModule } from '@angular/forms';
+import { MaterialModule } from '../material/material.module';
+import { LoginComponent } from '../../component/login/login.component';
+
 
 
 @NgModule({
-  declarations: [
-    LoginComponent
-  ],
+  declarations: [ LoginComponent],
   imports: [
     CommonModule,
     MaterialModule,
-    FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
-  ]
+    HttpClientModule,
+    BrowserModule 
+    
+  ],
+  providers:[
+   Title
+  ],
 })
 export class LoginModule { }

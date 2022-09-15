@@ -128,8 +128,5 @@
       }
     }
   },
-  "defaultProject": "OnSite",
-  "cli": {
-    "analytics": false
-  }
+  "defaultProject": "OnSite"
 }
