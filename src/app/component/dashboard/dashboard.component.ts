@@ -5,6 +5,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Title } from '@angular/platform-browser';
 import {ChartOptions, ChartType, ChartDataSets } from 'chart.js';
 import { Color, Label,MultiDataSet } from 'ng2-charts';
+import { OnsiteReportService } from 'src/app/services/onsiteReport.service';
 
 
 
@@ -15,6 +16,16 @@ import { Color, Label,MultiDataSet } from 'ng2-charts';
 
 })
 export class DashboardComponent implements OnInit {
+
+  countToday:any= 0;
+  countCurrentMonth:number= 0;
+  countLastMonth:number= 0;
+  countCurrentYear:number= 0;
+
+  MttrToday ='';
+  MttrCurrentMonth = '';
+  MttrLastMonth = '';
+  MttrCurrentYear = '';
 
   searchKey:string ='' ;
   isTableExpanded = false;
@@ -70,14 +81,46 @@ export class DashboardComponent implements OnInit {
   @ViewChild(MatPaginator) paginator?:MatPaginator ;
   displayedColumns: string[] = ['id', 'name', 'age', 'address','history'];
   dataSource = new MatTableDataSource(this.TICKETS_DATA);
-  constructor(private titleService:Title)
+  constructor(private titleService:Title , private onsiteService : OnsiteReportService)
 
   {
 
     this.titleService.setTitle("OnSite");
 
   }
+  getToday()
+{
+  return this.onsiteService.getToday().subscribe(res=>{
+    this.countToday = res.data[0] 
+    this.MttrToday = res.data2;
+  });
+}
+
+getCurrentMonth() {
+  return this.onsiteService.getCurrentMonth().subscribe(res=>{
+    this.countCurrentMonth = res.data[0];
+    this.MttrCurrentMonth = res.data2;
+  });
+}
+getLastMonth() {
+  return this.onsiteService.getLastMonth().subscribe(res=>{
+    this.countLastMonth = res.data[0];
+    this.MttrLastMonth = res.data2;
+  });
+}
+
+getCurrentYear(){
+  return this.onsiteService.getCurrentYear().subscribe(res=>{
+    this.countCurrentYear = res.data[0];
+    this.MttrCurrentYear = res.data2;
+  });
+}
+
   ngOnInit(){
+    this.getToday();
+    this.getCurrentMonth();
+    this.getLastMonth();
+    this.getCurrentYear();
 
   }
 
