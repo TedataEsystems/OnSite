@@ -1,33 +1,21 @@
 <!-- loader for loading login page -->
-<!-- <ngx-spinner>
-    <h3>Loading</h3>
-</ngx-spinner> -->
-
-
 <div class="content-body">
   <mat-card>
-    <div class="banner">
 
-      <div class="speci-login first-look">
-        <img src="../../../../assets/image/we-Logo/user.png" alt="" class="img-circle img-responsive">
-
-    </div>
-
-    </div>
       <mat-card-content>
 
-          <!-- <div class="">
+          <div class="tool">
 
-              <img src="../../../../assets/image/we-Logo/mini_logo.png"  class="mt-2" height="60px">
+             <span class="topic">ONSITE REPORT</span>
 
-          </div> -->
+          </div>
 
            <h2>
 
            Login
            </h2>
 
-           <form (ngSubmit)="onSubmit()" name="form" [formGroup]="form">
+           <form  class="mt-4" (ngSubmit)="onSubmit()" name="form" [formGroup]="form">
             <mat-form-field class="full-width" >
               <mat-label>Username </mat-label>
               <input formControlName="username" matInput required>
@@ -67,8 +55,18 @@
 
   </mat-card>
 
-  <div class="text-center">
-     <span class="text-white">© Copyright 2022. All Rights Reserved. | Powered by : Esystems</span>
+  <div class="text-center mt-2">
+     <span class="rights">© Copyright 2022. All Rights Reserved. | Powered by <span class="text-white">:Esystems</span> </span>
 
       </div>
+  <div class="WElogo">
+
+     <img src="../../../../assets/image/we-Logo/mini_logo.png" width="150" height="200">
+
+ </div>
+ <div class="Esystems">
+
+  <img src="../../../../assets/image/ccc.png" width="150" height="50">
+
+</div>
 </div>
