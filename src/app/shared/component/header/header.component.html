@@ -1,0 +1,37 @@
+<mat-toolbar>
+  <div>
+
+      <a routerLink="/">
+          <img src="../../../../assets/image/ccc.png" height="36" width="150"/>
+
+
+      </a>
+  </div>
+
+
+  <div fxFlex fxLayout fxLayoutAlign="end" >
+      <ul fxLayout fxLayoutGap="5px" class="navigation.items">
+
+          <li>
+
+              <button mat-icon-button >
+
+                  <mat-icon>account_circle</mat-icon>
+               </button>
+               <span> UserName </span>
+
+
+          </li>
+
+
+          <li>
+              <button mat-icon-button  (click)="logOut()"   matTooltip="Logout ">
+                  <mat-icon>logout</mat-icon>
+               </button>
+          </li>
+
+
+      </ul>
+  </div>
+
+</mat-toolbar>
