@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit {
       //this.config.Logout();
       this.titleService.setTitle("Onsite Report| Login");
       let token = localStorage.getItem("token");
-      if (token != "undefined" || token != null || token != "") {
+      if (token != "undefined" || token != null) {
         this.router.navigateByUrl('')
       }
 
@@ -63,7 +63,7 @@ export class LoginComponent implements OnInit {
 
       this.accountService.Login(loginview).subscribe(res => {
         this.user = res;
-        if ((this.user.token != "undefined" || this.user.token != null || this.user.token != "") && this.user.status != false) {
+        if ((this.user.token != "undefined" || this.user.token != null) && this.user.status != false) {
           this.warning=false;
           localStorage.setItem('token', this.user.token);
           localStorage.setItem('userName', this.user.userName);

@@ -91,28 +91,28 @@ export class DashboardComponent implements OnInit {
   getToday()
 {
   return this.onsiteService.getToday().subscribe(res=>{
-    this.countToday = res.data[0] 
-    this.MttrToday = res.data2;
+    this.countToday = res.count; 
+    this.MttrToday = res.mttr;
   });
 }
 
 getCurrentMonth() {
   return this.onsiteService.getCurrentMonth().subscribe(res=>{
-    this.countCurrentMonth = res.data[0];
-    this.MttrCurrentMonth = res.data2;
+    this.countCurrentMonth = res.count;
+    this.MttrCurrentMonth = res.mttr;
   });
 }
 getLastMonth() {
   return this.onsiteService.getLastMonth().subscribe(res=>{
-    this.countLastMonth = res.data[0];
-    this.MttrLastMonth = res.data2;
+    this.countLastMonth = res.count;
+    this.MttrLastMonth = res.mttr;
   });
 }
 
 getCurrentYear(){
   return this.onsiteService.getCurrentYear().subscribe(res=>{
-    this.countCurrentYear = res.data[0];
-    this.MttrCurrentYear = res.data2;
+    this.countCurrentYear = res.count;
+    this.MttrCurrentYear = res.mttr;
   });
 }
 

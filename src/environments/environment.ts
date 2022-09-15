@@ -5,13 +5,8 @@
 export const environment = {
   production: false,
   //API_URL:'http://localhost:44395/'
-<<<<<<< HEAD
-   //apiUrl: 'http://172.29.29.8:1020/api/'
-   apiUrl: 'https://localhost:44335/api/'
-=======
    apiUrl: 'http://172.29.29.8:1020/api/'
   //  apiUrl: 'https://localhost:44335/api/'
->>>>>>> 18675d29a402fe1c28b6e3771445ba1cedd35358
 };
 
 /*
