@@ -1,7 +1,6 @@
 <!--  ------main----------------- -->
-<mat-card class="example-card" style="padding-bottom: 10px !important; ">
+<!-- <mat-card class="example-card" style="padding-bottom: 10px !important; "> -->
 
-  <div class="caption"><span>Evaluate Statistics</span></div>
   <!-- first card -->
   <div class="pt-5 row d-flex">
       <div class="col-sm-3 col-md-3 mb-4">
@@ -243,69 +242,257 @@
 
   </div>
   <div class="row">
-      <div class="col-sm-12 col-md-12">
 
-          <div class="mx-0 pt-4  shadow card border-left-info  " style="height:468px;">
-
-              <div class="chart-wrapper mb-5 ">
-                  <canvas baseChart
-                  [datasets]="barChartData"
-                  [labels]="barChartLabels"
-                  [colors]="barcolors"
-                  [chartType]="barChartType"
-                  [options]="barChartOptions"
-                  [plugins]="barChartPlugins"
-                  [legend]="barChartLegend">
-                  </canvas>
-              </div>
-              <div class="detailscharttxt">
-                  <div class="detailschartblocks">
+      <div class="col-sm-12 col-md-6 row pr-0">
+<!-- first table -->
+        <div class="col-sm-12 pr-0">
 
 
-                      <span id="MainContent_monthstat_lbl" class="lblbigtxt">9.734</span>
-                      <label class="lblbigtxtunder">This Month</label>
-                  </div>
-                  <div class="detailschartblocks">
+          <mat-card class="example-card mt-0 shadow card">
+            <mat-card-header>
+                <mat-card-title>
+                  Request Count & MTTR group by Category &Sub Category
+                </mat-card-title>
 
-                      <span id="MainContent_totalevu_lbl" class="lblbigtxt">125,457</span>
+            </mat-card-header>
+            <mat-divider></mat-divider>
+          <div class="search-div" fxLayout="row">
 
-                      <label class="lblbigtxtunder">Total Evaluate</label>
-                  </div>
-
-                  <div class="detailschartblocks">
-
-
-                      <span id="MainContent_totalevoustat_lbl" class="lblbigtxt">+ 17%</span>
-                      <label class="lblbigtxtunder">Total </label>
-                  </div>
-
-              <hr class="breakline">
-              <div class="detailschartblocks">
-                  <label class="lblevaulatestat">Evaluate Done</label>
-              </div>
-              <div class="detailschartblocks">
-                  <label class="lblevaulatestat2">15<sub style="font-size: 11px;">Done Till Now</sub></label>
-
-              </div>
-              <div class="detailschartblocks">
-                  <label class="lblevaulatestat3">50<sub style="font-size: 11px;">Required</sub></label>
-              </div>
+            <mat-form-field class="search-form-field" floatLabel="never">
+                <input matInput [(ngModel)]="searchKey" placeholder="Search" autocomplete="off" (keyup)="applyFilter()">
+               <button mat-button matSuffix mat-icon-button aria-label="Clear" *ngIf="searchKey" (click)="onSearchClear()">
+                    <mat-icon>close</mat-icon>
+                </button>
+            </mat-form-field>
           </div>
 
+          <div *ngIf="dataSource==null;else table">
+            <app-loading-page></app-loading-page>
           </div>
 
+          <ng-template #table>
+            <div class="example-container mat-elevation-z8">
 
+          <mat-table [dataSource]="dataSource" multiTemplateDataRows  matSort >
+
+
+            <ng-container matColumnDef="id">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> No. </mat-header-cell>
+                <mat-cell *matCellDef="let element" data-label="ID"> {{element.id}} </mat-cell>
+            </ng-container>
+
+
+            <ng-container matColumnDef="name">
+                <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
+                <mat-cell *matCellDef="let element" data-label="name"> {{element.name}} </mat-cell>
+            </ng-container>
+
+
+            <ng-container matColumnDef="age">
+                <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header> Age </mat-header-cell>
+                <mat-cell *matCellDef="let element" data-label="Age"> {{element.age}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="address">
+                <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header> Address </mat-header-cell>
+                <mat-cell *matCellDef="let element" data-label="Address"> {{element.address}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="history">
+                <mat-header-cell mat-header-cell *matHeaderCellDef> History</mat-header-cell>
+                <mat-cell *matCellDef="let row" data-label="action">
+                    <button mat-button class="text-warning">
+                        <mat-icon>history</mat-icon>
+                        Show History
+                    </button>
+
+
+                </mat-cell>
+
+            </ng-container>
+
+
+
+            <ng-container matColumnDef="noData">
+                <mat-footer-cell *matFooterCellDef colspan="6">
+                   No Data ...
+                </mat-footer-cell>
+
+            </ng-container>
+
+
+
+            <mat-footer-row *matFooterRowDef="['noData']" [ngClass]="{'hide':!(dataSource.data.length==0 && dataSource !=null)}"></mat-footer-row>
+            <mat-header-row *matHeaderRowDef="displayedColumns;sticky: true"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;" class="student-element-row"></mat-row>
+             <!-- Extra row to show detail content column -->
+
+
+          </mat-table>
+          <!-- end test -->
+          </div>
+
+          </ng-template>
+
+          <mat-paginator [pageSizeOptions]="[5,25, 50, 100]"   [pageSize]="5"   showFirstLastButtons></mat-paginator>
+
+          </mat-card>
+
+
+        </div>
+
+        <!-- second table -->
+        <div class="col-sm-12 mt-3 pr-0">
+          <mat-card class="example-card mt-0  shadow card">
+            <mat-card-header>
+                <mat-card-title>
+
+                List of Request Grouped by Clouser Reason
+                </mat-card-title>
+
+
+
+
+            </mat-card-header>
+            <mat-divider></mat-divider>
+          <div class="search-div" fxLayout="row">
+
+            <mat-form-field class="search-form-field" floatLabel="never">
+                <input matInput [(ngModel)]="searchKey" placeholder="Search" autocomplete="off" (keyup)="applyFilter()">
+               <button mat-button matSuffix mat-icon-button aria-label="Clear" *ngIf="searchKey" (click)="onSearchClear()">
+                    <mat-icon>close</mat-icon>
+                </button>
+            </mat-form-field>
+          </div>
+
+          <div *ngIf="dataSource==null;else table">
+            <app-loading-page></app-loading-page>
+          </div>
+
+          <ng-template #table>
+            <div class="example-container mat-elevation-z8">
+
+          <mat-table [dataSource]="dataSource" multiTemplateDataRows  matSort >
+
+
+            <ng-container matColumnDef="id">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> No. </mat-header-cell>
+                <mat-cell *matCellDef="let element" data-label="ID"> {{element.id}} </mat-cell>
+            </ng-container>
+
+
+            <ng-container matColumnDef="name">
+                <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
+                <mat-cell *matCellDef="let element" data-label="name"> {{element.name}} </mat-cell>
+            </ng-container>
+
+
+            <ng-container matColumnDef="age">
+                <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header> Age </mat-header-cell>
+                <mat-cell *matCellDef="let element" data-label="Age"> {{element.age}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="address">
+                <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header> Address </mat-header-cell>
+                <mat-cell *matCellDef="let element" data-label="Address"> {{element.address}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="history">
+                <mat-header-cell mat-header-cell *matHeaderCellDef> History</mat-header-cell>
+                <mat-cell *matCellDef="let row" data-label="action">
+                    <button mat-button class="text-warning">
+                        <mat-icon>history</mat-icon>
+                        Show History
+                    </button>
+
+
+                </mat-cell>
+
+            </ng-container>
+
+
+            <ng-container matColumnDef="noData">
+                <mat-footer-cell *matFooterCellDef colspan="6">
+                   No Data ...
+                </mat-footer-cell>
+
+            </ng-container>
+
+
+
+            <mat-footer-row *matFooterRowDef="['noData']" [ngClass]="{'hide':!(dataSource.data.length==0 && dataSource !=null)}"></mat-footer-row>
+            <mat-header-row *matHeaderRowDef="displayedColumns;sticky: true"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;" class="student-element-row"></mat-row>
+             <!-- Extra row to show detail content column -->
+
+
+          </mat-table>
+          <!-- end test -->
+          </div>
+
+          </ng-template>
+
+          <mat-paginator [pageSizeOptions]="[5,25, 50, 100]"   [pageSize]="5"   showFirstLastButtons></mat-paginator>
+
+          </mat-card>
+
+        </div>
 
       </div>
+      <div class="col-sm-12 col-md-6 pr-0 ml-4">
 
+        <div class="mx-0 pt-4  shadow card border-left-info" style="height:640px">
+
+            <div class="chart-wrapper mb-5 ">
+                <canvas baseChart
+                [datasets]="barChartData"
+                [labels]="barChartLabels"
+                [colors]="barcolors"
+                [chartType]="barChartType"
+                [options]="barChartOptions"
+                [plugins]="barChartPlugins"
+                [legend]="barChartLegend">
+                </canvas>
+            </div>
+            <div class="detailscharttxt">
+                <div class="detailschartblocks">
+
+
+                    <span id="MainContent_monthstat_lbl" class="lblbigtxt">9.734</span>
+                    <label class="lblbigtxtunder">This Month</label>
+                </div>
+                <div class="detailschartblocks">
+
+                    <span id="MainContent_totalevu_lbl" class="lblbigtxt">125,457</span>
+
+                    <label class="lblbigtxtunder">Total Evaluate</label>
+                </div>
+
+                <div class="detailschartblocks">
+
+
+                    <span id="MainContent_totalevoustat_lbl" class="lblbigtxt">+ 17%</span>
+                    <label class="lblbigtxtunder">Total </label>
+                </div>
+
+            <hr class="breakline">
+            <div class="detailschartblocks">
+                <label class="lblevaulatestat ">Evaluate Done</label>
+            </div>
+            <div class="detailschartblocks">
+                <label class="lblevaulatestat2">15<sub style="font-size: 11px;">Done Till Now</sub></label>
+
+            </div>
+            <div class="detailschartblocks">
+                <label class="lblevaulatestat3">50<sub style="font-size: 11px;">Required</sub></label>
+            </div>
+        </div>
+
+        </div>
+
+
+
+    </div>
 
   </div>
-  <div class="row">
 
-
-
-
-    <!-- insert table here -->
-  </div>
-</mat-card>
+<!-- </mat-card> -->
 

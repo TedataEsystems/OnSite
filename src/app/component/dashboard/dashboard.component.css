@@ -32,14 +32,14 @@
 }
 .bg-info {
     /* background-color: #17a2b8 !important; */
-    background: linear-gradient(45deg, #808080, #ff0000);
+    background:linear-gradient(45deg, #8e2279,#80868b, #d7d7d7);
     /* background: linear-gradient(45deg, #2f3e42, #9bd6e5); */
 }
 .progress-sm {
     height: .9rem;
 }
 mat-icon,.percentage{
-    font-size: 2em;
+    font-size: 1.1em;
     font-weight: 900;
     color: #bababa!important;
    margin-top: 15px;
@@ -79,7 +79,7 @@ mat-icon,.percentage{
   padding: 18px;
   font-size: 22px;
   color: #fff;
-  background-color: #c93a3a;
+  background-color:#19374b;
 }
 .lblevaulatestat2 {
   text-align: center;
@@ -110,7 +110,7 @@ mat-icon,.percentage{
   color: #c93a3a;
 }
 canvas{
-  height: 250px !important;
+  height: 400px !important;
 }
 
 

@@ -1,4 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import { Title } from '@angular/platform-browser';
 import {ChartOptions, ChartType, ChartDataSets } from 'chart.js';
 import { Color, Label,MultiDataSet } from 'ng2-charts';
@@ -13,41 +16,97 @@ import { Color, Label,MultiDataSet } from 'ng2-charts';
 })
 export class DashboardComponent implements OnInit {
 
+  searchKey:string ='' ;
+  isTableExpanded = false;
+  TICKETS_DATA = [
+    {
+      "id": 1,
+      "name": "Abby Jaskolski ",
+      "age": 21,
+      "address": 1.0079,
+      "isExpanded": false,
+      "subjects": [
+        {
+          "name": "Bio",
+          "type": "Medical",
+          "grade": "A"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Jabari Fritsch",
+      "age": 20,
+      "address": 1.0079,
+      "isExpanded": false,
+      "subjects": [
+        {
+          "name": "Bio",
+          "type": "Medical",
+          "grade": "A"
+        }
+
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Maybell Simonis",
+      "age": 21,
+      "address": 1.0079,
+      "isExpanded": false,
+      "subjects": [
+        {
+          "name": "Bio",
+          "type": "Medical",
+          "grade": "A"
+        }
+
+      ]
+    }
+  ];
+
+
+  @ViewChild(MatSort) sort?:MatSort ;
+  @ViewChild(MatPaginator) paginator?:MatPaginator ;
+  displayedColumns: string[] = ['id', 'name', 'age', 'address','history'];
+  dataSource = new MatTableDataSource(this.TICKETS_DATA);
   constructor(private titleService:Title)
 
   {
 
-    this.titleService.setTitle("Home");
+    this.titleService.setTitle("OnSite");
 
   }
   ngOnInit(){
 
   }
 
-  /////////////////donut chart//////////////////
-  doughnutChartLabels: Label[] = ['BMW', 'Ford', 'Tesla'];
-  doughnutChartData: MultiDataSet = [
-    [55, 25, 20]
-  ];
-  doughnutChartLabelsp: Label[] = ['BMW', 'Ford', 'Tesla'];
-  doughnutChartDatap: MultiDataSet = [
-    [55, 25, 20]
-  ];
-  // doughnutChartLabels: Label[] = ['BMW', 'Ford', 'Tesla'];
-  // doughnutChartData: MultiDataSet = [
-  //   [55, 25, 20]
-  // ];
-  doughnutChartType: ChartType = 'doughnut';
-  colors: Color[] = [
-    {
-      backgroundColor: [
-      'rgb(148 148 27)',
-      'yellow',
-        'green',
-        'blue', 'red','pink','orange','purple','brown','DeepPink','DarkOrange'
-      ]
+
+
+  ngAfterViewInit() {
+
+    this.dataSource.sort = this.sort as MatSort;
+    this.dataSource.paginator = this.paginator as MatPaginator;}
+
+    onSearchClear(){
+      this.searchKey ='';
+      this.applyFilter();
     }
-  ];
+    applyFilter(){
+      this.dataSource.filter=this.searchKey.trim().toLowerCase();
+    }
+
+
+
+
+
+
+
+
+
+
+
+
 
 //////////line chart//////////////////////
 lineChartData: ChartDataSets[] = [
@@ -94,16 +153,16 @@ public barChartPlugins = [];
 
 public barcolors: Array<any> = [
   { // first color
-    backgroundColor: 'red',
+    backgroundColor:'#d7d7d7',
 
   },
   { // second color
-    backgroundColor: 'orange',
+    backgroundColor: '#80868b',
 
   },
 {
   // thirdcolor
-  backgroundColor: 'grey',
+  backgroundColor: '#8e2279',
 
 }];
 public barChartData: ChartDataSets[] = [
