@@ -6,6 +6,8 @@ import { Title } from '@angular/platform-browser';
 import {ChartOptions, ChartType, ChartDataSets } from 'chart.js';
 import { Color, Label,MultiDataSet } from 'ng2-charts';
 import { OnsiteReportService } from 'src/app/services/onsiteReport.service';
+import { GroupSubCat } from 'src/app/Model/GroupSubCat';
+import {groupClosure  } from 'src/app/Model/groupClosure';
 
 
 
@@ -27,60 +29,28 @@ export class DashboardComponent implements OnInit {
   MttrLastMonth = '';
   MttrCurrentYear = '';
 
-  searchKey:string ='' ;
+
   isTableExpanded = false;
-  TICKETS_DATA = [
-    {
-      "id": 1,
-      "name": "Abby Jaskolski ",
-      "age": 21,
-      "address": 1.0079,
-      "isExpanded": false,
-      "subjects": [
-        {
-          "name": "Bio",
-          "type": "Medical",
-          "grade": "A"
-        }
-      ]
-    },
-    {
-      "id": 2,
-      "name": "Jabari Fritsch",
-      "age": 20,
-      "address": 1.0079,
-      "isExpanded": false,
-      "subjects": [
-        {
-          "name": "Bio",
-          "type": "Medical",
-          "grade": "A"
-        }
-
-      ]
-    },
-    {
-      "id": 3,
-      "name": "Maybell Simonis",
-      "age": 21,
-      "address": 1.0079,
-      "isExpanded": false,
-      "subjects": [
-        {
-          "name": "Bio",
-          "type": "Medical",
-          "grade": "A"
-        }
-
-      ]
-    }
-  ];
-
-
+ 
+  //SubCat
+  searchKeySubCatTbl:string ='' ;
+  GroupSubCat: GroupSubCat[] = [];
+  displayedColumnsSubCatTbl: string[] = [ 'category', 'subCategory', 'requestCount', 'mttr'];
   @ViewChild(MatSort) sort?:MatSort ;
   @ViewChild(MatPaginator) paginator?:MatPaginator ;
-  displayedColumns: string[] = ['id', 'name', 'age', 'address','history'];
-  dataSource = new MatTableDataSource(this.TICKETS_DATA);
+  dataSourceSubCatTbl = new MatTableDataSource();
+  columnsToDisplaySubCatTbl: string[] = this.displayedColumnsSubCatTbl.slice();
+
+
+  //Closure
+  searchKeyClosureTbl:string ='' ;
+  groupClosure: groupClosure[] = [];
+  displayedColumnsClosureTbl: string[] = [ 'closure', 'requestCount', 'mttr'];
+  @ViewChild(MatSort) sortClosureTbl?:MatSort ;
+  @ViewChild(MatPaginator) paginatorClosureTbl?:MatPaginator ;
+  dataSourceClosureTbl = new MatTableDataSource();
+  columnsToDisplayClosureTbl: string[] = this.displayedColumnsClosureTbl.slice();
+
   constructor(private titleService:Title , private onsiteService : OnsiteReportService)
 
   {
@@ -88,6 +58,70 @@ export class DashboardComponent implements OnInit {
     this.titleService.setTitle("OnSite");
 
   }
+
+
+  //SubCat
+  pageNumberSubCatTbl = 1;
+  pageSizeSubCatTbl = 100;
+  sortColumnDefSubCatTbl: string = "requestCount";
+  SortDirDefSubCatTbl: string = 'asc';
+  public colnameSubCatTbl: string = 'Id';
+  public coldirSubCatTbl: string = 'asc';
+
+  getGroubSubCatToday(pageNum: number, pageSize: number, search: string, sortColumn: string, sortDir: string) {
+    this.onsiteService.getGroupSubCatToday(pageNum, pageSize, search, sortColumn, sortDir).subscribe(response => {
+      this.GroupSubCat = response?.data;
+      this.GroupSubCat.length = response?.pagination.totalCount;
+
+      this.dataSourceSubCatTbl = new MatTableDataSource<any>(this.GroupSubCat);
+      this.dataSourceSubCatTbl._updateChangeSubscription();
+      this.dataSourceSubCatTbl.paginator = this.paginator as MatPaginator;
+    })
+  }
+
+
+    onSearchSubCatTblClear(){
+      this.searchKeySubCatTbl ='';
+      this.applyFilterSubCatTbl();
+    }
+    applyFilterSubCatTbl(){
+      this.dataSourceSubCatTbl.filter=this.searchKeySubCatTbl.trim().toLowerCase();
+    }
+
+
+  //Closure
+  pageNumberClosureTbl = 1;
+  pageSizeClosureTbl = 100;
+  sortColumnDefClosureTbl: string = "requestCount";
+  SortDirDefClosureTbl: string = 'asc';
+  public colnameClosurebl: string = 'Id';
+  public coldirClosureTbl: string = 'asc';
+  getClosureToday(pageNum: number, pageSize: number, search: string, sortColumn: string, sortDir: string) {
+    console.log("Closure")
+
+    this.onsiteService.getGroupClosureToday(pageNum, pageSize, search, sortColumn, sortDir).subscribe(response => {
+
+      this.groupClosure = response?.data;
+      this.groupClosure.length = response?.pagination.totalCount;
+      console.log("Closure response",this.groupClosure)
+      this.dataSourceClosureTbl = new MatTableDataSource<any>(this.groupClosure);
+      this.dataSourceClosureTbl._updateChangeSubscription();
+      this.dataSourceClosureTbl.paginator = this.paginatorClosureTbl as MatPaginator;
+      console.log(" dataSourceClosureTbl",this.dataSourceClosureTbl);
+
+    })
+  }
+
+  onSearchClosureTblClear(){
+    this.searchKeyClosureTbl ='';
+    this.applyFilterClosureTbl();
+  }
+  applyFilterClosureTbl(){
+    this.dataSourceClosureTbl.filter=this.searchKeyClosureTbl.trim().toLowerCase();
+  }
+
+
+
   getToday()
 {
   return this.onsiteService.getToday().subscribe(res=>{
@@ -121,6 +155,8 @@ getCurrentYear(){
     this.getCurrentMonth();
     this.getLastMonth();
     this.getCurrentYear();
+    this.getGroubSubCatToday(1, 100, '', this.sortColumnDefSubCatTbl, this.SortDirDefSubCatTbl);
+    this.getClosureToday(1, 100, '', this.sortColumnDefClosureTbl, this.SortDirDefClosureTbl);
 
   }
 
@@ -128,18 +164,18 @@ getCurrentYear(){
 
   ngAfterViewInit() {
 
-    this.dataSource.sort = this.sort as MatSort;
-    this.dataSource.paginator = this.paginator as MatPaginator;}
+    this.dataSourceSubCatTbl.sort = this.sort as MatSort;
+    this.dataSourceSubCatTbl.paginator = this.paginator as MatPaginator;
 
-    onSearchClear(){
-      this.searchKey ='';
-      this.applyFilter();
-    }
-    applyFilter(){
-      this.dataSource.filter=this.searchKey.trim().toLowerCase();
-    }
+    this.dataSourceClosureTbl.sort = this.sortClosureTbl as MatSort;
+    this.dataSourceClosureTbl.paginator = this.paginatorClosureTbl as MatPaginator;
+  
+  
+  }
 
 
+
+   
 
 
 

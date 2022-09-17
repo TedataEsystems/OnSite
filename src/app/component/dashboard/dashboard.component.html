@@ -259,56 +259,46 @@
           <div class="search-div" fxLayout="row">
 
             <mat-form-field class="search-form-field" floatLabel="never">
-                <input matInput [(ngModel)]="searchKey" placeholder="Search" autocomplete="off" (keyup)="applyFilter()">
-               <button mat-button matSuffix mat-icon-button aria-label="Clear" *ngIf="searchKey" (click)="onSearchClear()">
+                <input matInput [(ngModel)]="searchKeySubCatTbl" placeholder="Search" autocomplete="off" (keyup)="applyFilterSubCatTbl()">
+               <button mat-button matSuffix mat-icon-button aria-label="Clear" *ngIf="searchKeySubCatTbl" (click)="onSearchSubCatTblClear()">
                     <mat-icon>close</mat-icon>
                 </button>
             </mat-form-field>
           </div>
 
-          <div *ngIf="dataSource==null;else table">
+          <div *ngIf="dataSourceSubCatTbl==null;else table">
             <app-loading-page></app-loading-page>
           </div>
 
           <ng-template #table>
             <div class="example-container mat-elevation-z8">
 
-          <mat-table [dataSource]="dataSource" multiTemplateDataRows  matSort >
+          <mat-table [dataSource]="dataSourceSubCatTbl" multiTemplateDataRows  matSort >
 
-
-            <ng-container matColumnDef="id">
-                <mat-header-cell *matHeaderCellDef mat-sort-header> No. </mat-header-cell>
-                <mat-cell *matCellDef="let element" data-label="ID"> {{element.id}} </mat-cell>
+            <ng-container matColumnDef="category">
+                <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header> category </mat-header-cell>
+                <mat-cell *matCellDef="let element" data-label="category"> {{element.category}} </mat-cell>
             </ng-container>
 
 
-            <ng-container matColumnDef="name">
-                <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
-                <mat-cell *matCellDef="let element" data-label="name"> {{element.name}} </mat-cell>
+            <ng-container matColumnDef="subCategory">
+                <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header> subCategory </mat-header-cell>
+                <mat-cell *matCellDef="let element" data-label="subCategory"> {{element.subCategory}} </mat-cell>
             </ng-container>
 
 
-            <ng-container matColumnDef="age">
-                <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header> Age </mat-header-cell>
-                <mat-cell *matCellDef="let element" data-label="Age"> {{element.age}} </mat-cell>
+            <ng-container matColumnDef="requestCount">
+                <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header> requestCount </mat-header-cell>
+                <mat-cell *matCellDef="let element" data-label="requestCount"> {{element.requestCount}} </mat-cell>
             </ng-container>
 
-            <ng-container matColumnDef="address">
-                <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header> Address </mat-header-cell>
-                <mat-cell *matCellDef="let element" data-label="Address"> {{element.address}} </mat-cell>
+            <ng-container matColumnDef="mttr">
+                <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header> mttr </mat-header-cell>
+                <mat-cell *matCellDef="let element" data-label="mttr"> {{element.mttr}} </mat-cell>
             </ng-container>
-            <ng-container matColumnDef="history">
-                <mat-header-cell mat-header-cell *matHeaderCellDef> History</mat-header-cell>
-                <mat-cell *matCellDef="let row" data-label="action">
-                    <button mat-button class="text-warning">
-                        <mat-icon>history</mat-icon>
-                        Show History
-                    </button>
+           
 
 
-                </mat-cell>
-
-            </ng-container>
 
 
 
@@ -321,9 +311,9 @@
 
 
 
-            <mat-footer-row *matFooterRowDef="['noData']" [ngClass]="{'hide':!(dataSource.data.length==0 && dataSource !=null)}"></mat-footer-row>
-            <mat-header-row *matHeaderRowDef="displayedColumns;sticky: true"></mat-header-row>
-            <mat-row *matRowDef="let row; columns: displayedColumns;" class="student-element-row"></mat-row>
+            <mat-footer-row *matFooterRowDef="['noData']" [ngClass]="{'hide':!(dataSourceSubCatTbl.data.length==0 && dataSourceSubCatTbl !=null)}"></mat-footer-row>
+            <mat-header-row *matHeaderRowDef="displayedColumnsSubCatTbl;sticky: true"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumnsSubCatTbl;" class="student-element-row"></mat-row>
              <!-- Extra row to show detail content column -->
 
 
@@ -357,58 +347,40 @@
           <div class="search-div" fxLayout="row">
 
             <mat-form-field class="search-form-field" floatLabel="never">
-                <input matInput [(ngModel)]="searchKey" placeholder="Search" autocomplete="off" (keyup)="applyFilter()">
-               <button mat-button matSuffix mat-icon-button aria-label="Clear" *ngIf="searchKey" (click)="onSearchClear()">
+                <input matInput [(ngModel)]="searchKeyClosureTbl" placeholder="Search" autocomplete="off" (keyup)="applyFilterClosureTbl()">
+               <button mat-button matSuffix mat-icon-button aria-label="Clear" *ngIf="searchKeyClosureTbl" (click)="onSearchClosureTblClear()">
                     <mat-icon>close</mat-icon>
                 </button>
             </mat-form-field>
           </div>
 
-          <div *ngIf="dataSource==null;else table">
+          <div *ngIf="dataSourceClosureTbl==null;else table">
             <app-loading-page></app-loading-page>
           </div>
 
           <ng-template #table>
             <div class="example-container mat-elevation-z8">
 
-          <mat-table [dataSource]="dataSource" multiTemplateDataRows  matSort >
+          <mat-table [dataSource]="dataSourceClosureTbl" multiTemplateDataRows  matSort >
 
 
-            <ng-container matColumnDef="id">
-                <mat-header-cell *matHeaderCellDef mat-sort-header> No. </mat-header-cell>
-                <mat-cell *matCellDef="let element" data-label="ID"> {{element.id}} </mat-cell>
+
+
+            <ng-container matColumnDef="closure">
+                <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header> closure </mat-header-cell>
+                <mat-cell *matCellDef="let element" data-label="closure"> {{element.closure}} </mat-cell>
             </ng-container>
 
 
-            <ng-container matColumnDef="name">
-                <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
-                <mat-cell *matCellDef="let element" data-label="name"> {{element.name}} </mat-cell>
+            <ng-container matColumnDef="requestCount">
+                <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header> requestCount </mat-header-cell>
+                <mat-cell *matCellDef="let element" data-label="requestCount"> {{element.requestCount}} </mat-cell>
             </ng-container>
 
-
-            <ng-container matColumnDef="age">
-                <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header> Age </mat-header-cell>
-                <mat-cell *matCellDef="let element" data-label="Age"> {{element.age}} </mat-cell>
+            <ng-container matColumnDef="mttr">
+                <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header> mttr </mat-header-cell>
+                <mat-cell *matCellDef="let element" data-label="mttr"> {{element.mttr}} </mat-cell>
             </ng-container>
-
-            <ng-container matColumnDef="address">
-                <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header> Address </mat-header-cell>
-                <mat-cell *matCellDef="let element" data-label="Address"> {{element.address}} </mat-cell>
-            </ng-container>
-            <ng-container matColumnDef="history">
-                <mat-header-cell mat-header-cell *matHeaderCellDef> History</mat-header-cell>
-                <mat-cell *matCellDef="let row" data-label="action">
-                    <button mat-button class="text-warning">
-                        <mat-icon>history</mat-icon>
-                        Show History
-                    </button>
-
-
-                </mat-cell>
-
-            </ng-container>
-
-
             <ng-container matColumnDef="noData">
                 <mat-footer-cell *matFooterCellDef colspan="6">
                    No Data ...
@@ -418,9 +390,9 @@
 
 
 
-            <mat-footer-row *matFooterRowDef="['noData']" [ngClass]="{'hide':!(dataSource.data.length==0 && dataSource !=null)}"></mat-footer-row>
-            <mat-header-row *matHeaderRowDef="displayedColumns;sticky: true"></mat-header-row>
-            <mat-row *matRowDef="let row; columns: displayedColumns;" class="student-element-row"></mat-row>
+            <mat-footer-row *matFooterRowDef="['noData']" [ngClass]="{'hide':!(dataSourceClosureTbl.data.length==0 && dataSourceClosureTbl !=null)}"></mat-footer-row>
+            <mat-header-row *matHeaderRowDef="displayedColumnsClosureTbl;sticky: true"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumnsClosureTbl;" class="student-element-row"></mat-row>
              <!-- Extra row to show detail content column -->
 
 
