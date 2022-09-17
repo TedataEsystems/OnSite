@@ -354,21 +354,21 @@
             </mat-form-field>
           </div>
 
-          <div *ngIf="dataSourceClosureTbl==null;else table">
+          <div *ngIf="dataSourceClosureTbl==null;else tableClosure">
             <app-loading-page></app-loading-page>
           </div>
 
-          <ng-template #table>
+          <ng-template #tableClosure>
             <div class="example-container mat-elevation-z8">
 
-          <mat-table [dataSource]="dataSourceClosureTbl" multiTemplateDataRows  matSort >
+          <mat-table [dataSource]="dataSourceClosureTbl" multiTemplateDataRows   matSort>
 
 
 
 
             <ng-container matColumnDef="closure">
                 <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header> closure </mat-header-cell>
-                <mat-cell *matCellDef="let element" data-label="closure"> {{element.closure}} </mat-cell>
+                <mat-cell *matCellDef="let element" data-label="closure"> {{element.closureReason}} </mat-cell>
             </ng-container>
 
 
