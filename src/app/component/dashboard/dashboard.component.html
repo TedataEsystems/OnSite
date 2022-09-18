@@ -273,7 +273,7 @@
           <ng-template #table>
             <div class="example-container mat-elevation-z8">
 
-          <mat-table [dataSource]="dataSource" multiTemplateDataRows  matSort >
+          <mat-table [dataSource]="dataSource" multiTemplateDataRows  matSort (matSortChange)="sortData($event)" matSortActive="RequestCount" matSortDirection="asc" matSortDisableClear  >
 
             <ng-container matColumnDef="Category">
                 <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header> Category </mat-header-cell>
@@ -332,7 +332,7 @@
 
           </ng-template>
 
-          <mat-paginator [pageSizeOptions]="[5,25, 50, 100]"   [pageSize]="5"   showFirstLastButtons></mat-paginator>
+          <mat-paginator [pageSizeOptions]="[5,25, 50, 100]"   [pageSize]="5"   showFirstLastButtons (page)="pageChanged($event)"></mat-paginator>
 
           </mat-card>
 
@@ -370,7 +370,7 @@
           <ng-template #closure_table>
             <div class="example-container mat-elevation-z8">
 
-          <mat-table [dataSource]="closure_dataSource" multiTemplateDataRows  matSort >
+          <mat-table [dataSource]="closure_dataSource" multiTemplateDataRows  matSort (matSortChange)="closure_sortData($event)" matSortActive="RequestCount" matSortDirection="asc" matSortDisableClear >
 
             <ng-container matColumnDef="closureReason">
                 <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header> closureReason </mat-header-cell>
@@ -409,7 +409,7 @@
 
           </ng-template>
 
-          <mat-paginator [pageSizeOptions]="[5,25, 50, 100]"   [pageSize]="5"   showFirstLastButtons></mat-paginator>
+          <mat-paginator #closure_MatPaginator [pageSizeOptions]="[5,25, 50, 100]"   [pageSize]="5"   showFirstLastButtons (page)="closure_pageChanged($event)"></mat-paginator>
 
           </mat-card>
 

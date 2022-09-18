@@ -95,7 +95,7 @@ export class DashboardComponent implements OnInit {
   @ViewChild(MatPaginator) paginator?:MatPaginator ;
 
   @ViewChild(MatSort) closure_sort?:MatSort ;
-  @ViewChild(MatPaginator) closure_paginator?:MatPaginator ;
+  @ViewChild('closure_MatPaginator') closure_paginator?:MatPaginator ;
 
   displayedColumns: string[] = ['Category', 'SubCategory','RequestCount','Mttr'];
   dataSource = new MatTableDataSource(this.listSubCatCountMttrToday);
@@ -158,7 +158,7 @@ getRequestdataByClosureReason(pageNum: number, pageSize: number, search: string,
     this.listClosureCountMttrToday.length = response?.pagination.totalCount;
     this.closure_dataSource = new MatTableDataSource<any>(this.listClosureCountMttrToday);
     this.closure_dataSource._updateChangeSubscription();
-    this.closure_dataSource.paginator = this.paginator as MatPaginator;
+    this.closure_dataSource.paginator = this.closure_paginator as MatPaginator;
   })
   setTimeout(()=> this.loader = false,2000) ;
 }
@@ -192,16 +192,17 @@ getRequestdataByClosureReason(pageNum: number, pageSize: number, search: string,
       this.closure_searchKey ='';
       this.closure_applyFilter();
     }
-    // applyFilter(){
-    //   this.dataSource.filter=this.searchKey.trim().toLowerCase();
-    // }
-    applyFilter() {
-      let searchData = this.searchKey.trim().toLowerCase();
-      this.getRequestdataBySubCategory(1, 25, searchData, this.sortColumnDef, "asc");
+    applyFilter(){
+      this.dataSource.filter=this.searchKey.trim().toLowerCase();
     }
+    // applyFilter() {
+    //   let searchData = this.searchKey.trim().toLowerCase();
+    //   this.getRequestdataBySubCategory(1, 25, searchData, this.sortColumnDef, "asc");
+    // }
     closure_applyFilter() {
-      let searchData = this.closure_searchKey.trim().toLowerCase();
-      this.getRequestdataByClosureReason(1, 25, searchData, this.closure_sortColumnDef, "asc");
+      this.closure_dataSource.filter=this.closure_searchKey.trim().toLowerCase();
+      // let searchData = this.closure_searchKey.trim().toLowerCase();
+      // this.getRequestdataByClosureReason(1, 25, searchData, this.closure_sortColumnDef, "asc");
     }
 
   //this section for pagination
@@ -210,6 +211,7 @@ getRequestdataByClosureReason(pageNum: number, pageSize: number, search: string,
   pagesizedef: number = 25;
   public pIn: number = 0;
   pageChanged(event: any) {
+    debugger;
     this.loader = true;
     this.pIn = event.pageIndex;
     this.pageIn = event.pageIndex;
@@ -269,15 +271,16 @@ getRequestdataByClosureReason(pageNum: number, pageSize: number, search: string,
    closure_pagesizedef: number = 25;
    public   closure_pIn: number = 0;
    closure_pageChanged(event: any) {
+    debugger;
      this.loader = true;
      this.closure_pIn = event.pageIndex;
      this.closure_pageIn = event.pageIndex;
      this.closure_pagesizedef = event.pageSize;
-     let pageIndex = event.pageIndex;
-     let pageSize = event.pageSize;
-     let previousSize = pageSize * pageIndex;
-     this.previousSizedef = previousSize;
-     this.getRequestdataNextClosure(previousSize,  pageIndex + 1, pageSize, '', this.sortColumnDef, this.SortDirDef);
+     let closure_pageIndex = event.pageIndex;
+     let closure_pageSize = event.pageSize;
+     let closure_previousSize = closure_pageSize * closure_pageIndex;
+     this.closure_pagesizedef = closure_previousSize;
+     this.getRequestdataNextClosure(closure_previousSize,  closure_pageIndex + 1, closure_pageSize, '', this.sortColumnDef, this.SortDirDef);
    }
    getRequestdataNextClosure(cursize: number, pageNum: number, pageSize: number, search: string, sortColumn: string, sortDir: string) {
 
@@ -289,7 +292,7 @@ getRequestdataByClosureReason(pageNum: number, pageSize: number, search: string,
            this.listClosureCountMttrToday.length = res?.pagination.totalCount;
            this.closure_dataSource = new MatTableDataSource<any>(this.listClosureCountMttrToday);
            this.closure_dataSource._updateChangeSubscription();
-           this.closure_dataSource.paginator = this.paginator as MatPaginator;
+           this.closure_dataSource.paginator = this.closure_paginator as MatPaginator;
            this.loader = false;
          }
          else this.notificationService.warn(res.error)
