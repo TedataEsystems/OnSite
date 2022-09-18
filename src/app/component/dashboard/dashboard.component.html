@@ -142,7 +142,7 @@
                     </div> -->
                 </div>
                 <div class="col-auto">
-                    <span class="percentage"> {{this.MttrToday}}</span>
+                    <span class="percentage1"> {{this.MttrToday}}</span>
                     <!-- <mat-icon>%</mat-icon> -->
                 </div>
             </div>
@@ -171,7 +171,7 @@
                   </div> -->
               </div>
               <div class="col-auto">
-                  <span class="percentage"> {{this.MttrCurrentMonth}}</span>
+                  <span class="percentage1"> {{this.MttrCurrentMonth}}</span>
                   <!-- <mat-icon>%</mat-icon> -->
               </div>
           </div>
@@ -200,7 +200,7 @@
                   </div> -->
               </div>
               <div class="col-auto">
-                  <span class="percentage"> {{this.MttrLastMonth}}</span>
+                  <span class="percentage1"> {{this.MttrLastMonth}}</span>
                   <!-- <mat-icon>%</mat-icon> -->
               </div>
           </div>
@@ -229,7 +229,7 @@
                   </div> -->
               </div>
               <div class="col-auto">
-                  <span class="percentage">{{this.MttrCurrentYear}}</span>
+                  <span class="percentage1">{{this.MttrCurrentYear}}</span>
                   <!-- <mat-icon>%</mat-icon> -->
               </div>
           </div>
@@ -275,29 +275,28 @@
 
           <mat-table [dataSource]="dataSource" multiTemplateDataRows  matSort >
 
-
-            <ng-container matColumnDef="id">
-                <mat-header-cell *matHeaderCellDef mat-sort-header> No. </mat-header-cell>
-                <mat-cell *matCellDef="let element" data-label="ID"> {{element.id}} </mat-cell>
+            <ng-container matColumnDef="Category">
+                <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header> Category </mat-header-cell>
+                <mat-cell *matCellDef="let element" data-label="Category"> {{element.category}} </mat-cell>
             </ng-container>
 
 
-            <ng-container matColumnDef="name">
-                <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
-                <mat-cell *matCellDef="let element" data-label="name"> {{element.name}} </mat-cell>
+            <ng-container matColumnDef="SubCategory">
+                <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header> SubCategory </mat-header-cell>
+                <mat-cell *matCellDef="let element" data-label="SubCategory"> {{element.subCategory}} </mat-cell>
             </ng-container>
 
-
-            <ng-container matColumnDef="age">
-                <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header> Age </mat-header-cell>
-                <mat-cell *matCellDef="let element" data-label="Age"> {{element.age}} </mat-cell>
+            <ng-container matColumnDef="RequestCount">
+                <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header> RequestCount </mat-header-cell>
+                <mat-cell *matCellDef="let element" data-label="RequestCount"> {{element.requestCount}} </mat-cell>
             </ng-container>
 
-            <ng-container matColumnDef="address">
-                <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header> Address </mat-header-cell>
-                <mat-cell *matCellDef="let element" data-label="Address"> {{element.address}} </mat-cell>
+            <ng-container matColumnDef="Mttr">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Mttr </mat-header-cell>
+                <mat-cell *matCellDef="let element" data-label="Mttr"> {{element.mttr}} </mat-cell>
             </ng-container>
-            <ng-container matColumnDef="history">
+
+            <!-- <ng-container matColumnDef="history">
                 <mat-header-cell mat-header-cell *matHeaderCellDef> History</mat-header-cell>
                 <mat-cell *matCellDef="let row" data-label="action">
                     <button mat-button class="text-warning">
@@ -308,7 +307,7 @@
 
                 </mat-cell>
 
-            </ng-container>
+            </ng-container> -->
 
 
 
@@ -346,7 +345,7 @@
             <mat-card-header>
                 <mat-card-title>
 
-                List of Request Grouped by Clouser Reason
+                List of Request Grouped by Closure Reason
                 </mat-card-title>
 
 
@@ -357,55 +356,35 @@
           <div class="search-div" fxLayout="row">
 
             <mat-form-field class="search-form-field" floatLabel="never">
-                <input matInput [(ngModel)]="searchKey" placeholder="Search" autocomplete="off" (keyup)="applyFilter()">
-               <button mat-button matSuffix mat-icon-button aria-label="Clear" *ngIf="searchKey" (click)="onSearchClear()">
+                <input matInput [(ngModel)]="closure_searchKey" placeholder="Search" autocomplete="off" (keyup)="closure_applyFilter()">
+               <button mat-button matSuffix mat-icon-button aria-label="Clear" *ngIf="closure_searchKey" (click)="closure_onSearchClear()">
                     <mat-icon>close</mat-icon>
                 </button>
             </mat-form-field>
           </div>
 
-          <div *ngIf="dataSource==null;else table">
+          <div *ngIf="closure_dataSource==null;else table">
             <app-loading-page></app-loading-page>
           </div>
 
           <ng-template #table>
             <div class="example-container mat-elevation-z8">
 
-          <mat-table [dataSource]="dataSource" multiTemplateDataRows  matSort >
+          <mat-table [dataSource]="closure_dataSource" multiTemplateDataRows  matSort >
 
-
-            <ng-container matColumnDef="id">
-                <mat-header-cell *matHeaderCellDef mat-sort-header> No. </mat-header-cell>
-                <mat-cell *matCellDef="let element" data-label="ID"> {{element.id}} </mat-cell>
+            <ng-container matColumnDef="closureReason">
+                <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header> closureReason </mat-header-cell>
+                <mat-cell *matCellDef="let element" data-label="closureReason"> {{element.closureReason}} </mat-cell>
             </ng-container>
 
-
-            <ng-container matColumnDef="name">
-                <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
-                <mat-cell *matCellDef="let element" data-label="name"> {{element.name}} </mat-cell>
+            <ng-container matColumnDef="RequestCount">
+                <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header> RequestCount </mat-header-cell>
+                <mat-cell *matCellDef="let element" data-label="RequestCount"> {{element.requestCount}} </mat-cell>
             </ng-container>
 
-
-            <ng-container matColumnDef="age">
-                <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header> Age </mat-header-cell>
-                <mat-cell *matCellDef="let element" data-label="Age"> {{element.age}} </mat-cell>
-            </ng-container>
-
-            <ng-container matColumnDef="address">
-                <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header> Address </mat-header-cell>
-                <mat-cell *matCellDef="let element" data-label="Address"> {{element.address}} </mat-cell>
-            </ng-container>
-            <ng-container matColumnDef="history">
-                <mat-header-cell mat-header-cell *matHeaderCellDef> History</mat-header-cell>
-                <mat-cell *matCellDef="let row" data-label="action">
-                    <button mat-button class="text-warning">
-                        <mat-icon>history</mat-icon>
-                        Show History
-                    </button>
-
-
-                </mat-cell>
-
+            <ng-container matColumnDef="Mttr">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Mttr </mat-header-cell>
+                <mat-cell *matCellDef="let element" data-label="Mttr"> {{element.mttr}} </mat-cell>
             </ng-container>
 
 
@@ -418,9 +397,9 @@
 
 
 
-            <mat-footer-row *matFooterRowDef="['noData']" [ngClass]="{'hide':!(dataSource.data.length==0 && dataSource !=null)}"></mat-footer-row>
-            <mat-header-row *matHeaderRowDef="displayedColumns;sticky: true"></mat-header-row>
-            <mat-row *matRowDef="let row; columns: displayedColumns;" class="student-element-row"></mat-row>
+            <mat-footer-row *matFooterRowDef="['noData']" [ngClass]="{'hide':!(closure_dataSource.data.length==0 && closure_dataSource !=null)}"></mat-footer-row>
+            <mat-header-row *matHeaderRowDef="closure_displayedColumns;sticky: true"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: closure_displayedColumns;" class="student-element-row"></mat-row>
              <!-- Extra row to show detail content column -->
 
 
