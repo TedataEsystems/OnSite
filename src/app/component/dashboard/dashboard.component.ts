@@ -29,7 +29,7 @@ export class DashboardComponent implements OnInit {
   closure_sortColumnDef: string = "RequestCount";
   closure_SortDirDef: string = 'asc';
 
-  
+
   countToday:any= 0;
   countCurrentMonth:number= 0;
   countLastMonth:number= 0;
@@ -100,7 +100,7 @@ export class DashboardComponent implements OnInit {
   displayedColumns: string[] = ['Category', 'SubCategory','RequestCount','Mttr'];
   dataSource = new MatTableDataSource(this.listSubCatCountMttrToday);
 
-  closure_displayedColumns: string[] = ['ClosureReason', 'RequestCount','Mttr'];
+  closure_displayedColumns: string[] = ['closureReason', 'RequestCount','Mttr'];
   closure_dataSource = new MatTableDataSource(this.listClosureCountMttrToday);
   // displayedColumns: string[] = ['id', 'name', 'age', 'address','history'];
   // dataSource = new MatTableDataSource(this.TICKETS_DATA);
@@ -115,7 +115,7 @@ export class DashboardComponent implements OnInit {
   getToday()
 {
   return this.onsiteService.getToday().subscribe(res=>{
-    this.countToday = res.count; 
+    this.countToday = res.count;
     this.MttrToday = res.mttr;
   });
 }
@@ -181,7 +181,7 @@ getRequestdataByClosureReason(pageNum: number, pageSize: number, search: string,
 
     this.closure_dataSource.sort = this.closure_sort as MatSort;
     this.closure_dataSource.paginator = this.closure_paginator as MatPaginator;
-  
+
   }
 
     onSearchClear(){
@@ -203,8 +203,8 @@ getRequestdataByClosureReason(pageNum: number, pageSize: number, search: string,
       let searchData = this.closure_searchKey.trim().toLowerCase();
       this.getRequestdataByClosureReason(1, 25, searchData, this.closure_sortColumnDef, "asc");
     }
-    
-  //this section for pagination 
+
+  //this section for pagination
   pageIn = 0;
   previousSizedef = 25;
   pagesizedef: number = 25;
@@ -221,10 +221,10 @@ getRequestdataByClosureReason(pageNum: number, pageSize: number, search: string,
     this.getRequestdataNext(previousSize,  pageIndex + 1, pageSize, '', this.sortColumnDef, this.SortDirDef);
   }
   getRequestdataNext(cursize: number, pageNum: number, pageSize: number, search: string, sortColumn: string, sortDir: string) {
-  
+
       this.onsiteService.getSubCatCountMttrToday(pageNum, pageSize, search, sortColumn, sortDir).subscribe(res => {
         if (res.status == true) {
-         
+
           this.listSubCatCountMttrToday.length = cursize;
           this.listSubCatCountMttrToday.push(...res?.data);
           this.listSubCatCountMttrToday.length = res?.pagination.totalCount;
@@ -239,7 +239,7 @@ getRequestdataByClosureReason(pageNum: number, pageSize: number, search: string,
         this.loader = false;
 
       })
-    
+
 
   }
   lastcol: string = 'Id';
@@ -280,10 +280,10 @@ getRequestdataByClosureReason(pageNum: number, pageSize: number, search: string,
      this.getRequestdataNextClosure(previousSize,  pageIndex + 1, pageSize, '', this.sortColumnDef, this.SortDirDef);
    }
    getRequestdataNextClosure(cursize: number, pageNum: number, pageSize: number, search: string, sortColumn: string, sortDir: string) {
-   
+
        this.onsiteService.getClosureCountMttrToday(pageNum, pageSize, search, sortColumn, sortDir).subscribe(res => {
          if (res.status == true) {
-          
+
            this.listClosureCountMttrToday.length = cursize;
            this.listClosureCountMttrToday.push(...res?.data);
            this.listClosureCountMttrToday.length = res?.pagination.totalCount;
@@ -296,14 +296,14 @@ getRequestdataByClosureReason(pageNum: number, pageSize: number, search: string,
        }, err => {
          this.notificationService.warn("! Fail");
          this.loader = false;
- 
+
        })
-     
- 
+
+
    }
    closure_lastcol: string = 'Id';
    closure_lastdir: string = 'asc';
- 
+
    closure_sortData(sort: any) {
      if (this.closure_pIn != 0)
        window.location.reload();
