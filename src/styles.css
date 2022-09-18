@@ -348,7 +348,7 @@ snack-bar-container.success {
             background-color: #cad1d3;
         }
         .mat-progress-bar-fill::after {
-          background-color: #079419;
+          background-color: #2173a9;
       }
       .mat-progress-bar-background {
         fill: #cad1d3 !important;
@@ -357,12 +357,21 @@ snack-bar-container.success {
   .mat-progress-spinner circle, .mat-spinner circle {
     stroke: #079419;
 }
+mat-header-row{
+  width: 100% !important;
+}
 
 
            /* table responsive */
 
            @media screen and (max-width: 960px) {
 
+            .text-info{
+              font-size: 12px;
+            }
+            .brand-box{
+
+              margin-left: -11px !important;}
             .mat-table {
               border: 0;
               /* vertical-align: middle */
