@@ -61,5 +61,8 @@ getClosureCountMttrToday(PageNumber :number , PageSize :number , searchValue:str
   )
 }
 
+GetCountOverYear(): Observable<any> {
+  return this.httpClient.get<any>(`${environment.apiUrl}OnsiteReport/GetCountOverYear`);
+}
 
 }
