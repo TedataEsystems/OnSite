@@ -1,5 +1,8 @@
 <!--  ------main----------------- -->
 <!-- <mat-card class="example-card" style="padding-bottom: 10px !important; "> -->
+  <ngx-spinner type="timer">
+    <h5>Loading</h5>
+  </ngx-spinner>
 
   <!-- first card -->
   <div class="pt-5 row d-flex">
@@ -305,8 +308,13 @@
 
       </div>
       <div class="col-sm-12 col-md-6 pr-0 ml-4">
+        <div class="text-center my-5" *ngIf="barChartData==null;else chart">
 
-        <div class="mx-0 pt-4  shadow card border-left-info" style="height:640px">
+          <span class="font-weight-bold">Loading</span>
+          <mat-progress-bar mode="indeterminate" class="mt-2"></mat-progress-bar>
+      </div>
+<ng-template #chart>
+        <div class="mx-0 pt-4  shadow card border-left-info" style="height:580px">
 
             <div class="chart-wrapper mb-5 ">
                 <canvas baseChart
@@ -319,6 +327,7 @@
                 [legend]="barChartLegend">
                 </canvas>
             </div>
+            <hr class="breakline">
             <div class="detailscharttxt">
                 <div class="detailschartblocks">
 
@@ -340,7 +349,7 @@
                     <label class="lblbigtxtunder">Total </label>
                 </div> -->
 
-            <hr class="breakline">
+            <!-- <hr class="breakline"> -->
             <!-- <div class="detailschartblocks">
                 <label class="lblevaulatestat ">Evaluate Done</label>
             </div>
@@ -355,7 +364,7 @@
 
         </div>
 
-
+      </ng-template>
 
     </div>
 

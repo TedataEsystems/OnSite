@@ -12,15 +12,12 @@ import { MaterialModule } from '../material/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { EditComponent } from 'src/app/component/edit/edit.component';
-import { HistoryListComponent } from 'src/app/component/history-list/history-list.component';
-import { InventoryComponent } from 'src/app/component/inventory/inventory.component';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { IncomingComponent } from 'src/app/component/setting/incoming/incoming.component';
-import { OutgoingComponent } from 'src/app/component/setting/outgoing/outgoing.component';
-import { StoreComponent } from 'src/app/component/setting/store/store.component';
 import { ChartsModule } from 'ng2-charts';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { LoadingInterceptor } from 'src/app/interseptors/loading.interceptor';
 
 
 
@@ -36,12 +33,7 @@ import { ChartsModule } from 'ng2-charts';
     ErrorPageComponent,
     DeleteMsgComponent,
     DashboardComponent,
-    EditComponent,
-    HistoryListComponent,
-    InventoryComponent,
-    StoreComponent,
-    IncomingComponent,
-    OutgoingComponent
+
   ],
   imports: [
     CommonModule,
@@ -51,6 +43,7 @@ import { ChartsModule } from 'ng2-charts';
     FormsModule,
     ReactiveFormsModule,
     FlexLayoutModule,
+    NgxSpinnerModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot({
       timeOut: 3000,
@@ -59,6 +52,7 @@ import { ChartsModule } from 'ng2-charts';
     }),
 
 
-  ]
+  ],
+  providers:[{provide:HTTP_INTERCEPTORS , useClass:LoadingInterceptor , multi:true}]
 })
 export class LayoutModule { }

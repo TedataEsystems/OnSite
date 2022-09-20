@@ -9,6 +9,7 @@ import { listClosureCountMttrToday } from 'src/app/Model/listClosureCountMttrTod
 import { listSubCatCountMttrToday } from 'src/app/Model/listSubCatCountMttrToday';
 import { NotificationMsgService } from 'src/app/services/notification-msg.service';
 import { OnsiteReportService } from 'src/app/services/onsiteReport.service';
+import { LoaderService } from 'src/app/shared/service/loader.service';
 
 
 
@@ -20,7 +21,7 @@ import { OnsiteReportService } from 'src/app/services/onsiteReport.service';
 })
 export class DashboardComponent implements OnInit {
 
-  loader: boolean = false;
+  //loader: boolean = false;
   listSubCatCountMttrToday: listSubCatCountMttrToday[] = [];
   sortColumnDef: string = "RequestCount";
   SortDirDef: string = 'asc';
@@ -104,9 +105,10 @@ export class DashboardComponent implements OnInit {
   closure_dataSource = new MatTableDataSource(this.listClosureCountMttrToday);
   // displayedColumns: string[] = ['id', 'name', 'age', 'address','history'];
   // dataSource = new MatTableDataSource(this.TICKETS_DATA);
-  constructor(private titleService: Title, private onsiteService: OnsiteReportService,
+  constructor(private titleService: Title, private onsiteService: OnsiteReportService,private loader: LoaderService,
     private notificationService: NotificationMsgService) {
 
+      this.loader.busy();
     this.titleService.setTitle("OnSite");
 
   }
@@ -137,7 +139,7 @@ export class DashboardComponent implements OnInit {
     });
   }
   getRequestdataBySubCategory(pageNum: number, pageSize: number, search: string, sortColumn: string, sortDir: string) {
-    this.loader = true;
+    //this.loader = true;
     this.onsiteService.getSubCatCountMttrToday(pageNum, pageSize, search, sortColumn, sortDir).subscribe(response => {
       this.listSubCatCountMttrToday = response?.data;
       this.listSubCatCountMttrToday.length = response?.pagination.totalCount;
@@ -145,11 +147,11 @@ export class DashboardComponent implements OnInit {
       this.dataSource._updateChangeSubscription();
       this.dataSource.paginator = this.paginator as MatPaginator;
     })
-    setTimeout(() => this.loader = false, 2000);
+    //setTimeout(() => this.loader = false, 2000);
   }
 
   getRequestdataByClosureReason(pageNum: number, pageSize: number, search: string, sortColumn: string, sortDir: string) {
-    this.loader = true;
+    //this.loader = true;
     this.onsiteService.getClosureCountMttrToday(pageNum, pageSize, search, sortColumn, sortDir).subscribe(response => {
       this.listClosureCountMttrToday = response?.data;
       this.listClosureCountMttrToday.length = response?.pagination.totalCount;
@@ -157,7 +159,7 @@ export class DashboardComponent implements OnInit {
       this.closure_dataSource._updateChangeSubscription();
       this.closure_dataSource.paginator = this.closure_paginator as MatPaginator;
     })
-    setTimeout(() => this.loader = false, 2000);
+   // setTimeout(() => this.loader = false, 2000);
   }
   ngOnInit() {
     this.getRequestdataBySubCategory(1, 25, '', this.sortColumnDef, this.SortDirDef);
@@ -173,6 +175,9 @@ export class DashboardComponent implements OnInit {
 
 
   ngAfterViewInit() {
+
+      this.loader.idle();
+
 
     this.dataSource.sort = this.sort as MatSort;
     this.dataSource.paginator = this.paginator as MatPaginator;
@@ -210,7 +215,7 @@ export class DashboardComponent implements OnInit {
   public pIn: number = 0;
   pageChanged(event: any) {
     debugger;
-    this.loader = true;
+    //this.loader = true;
     this.pIn = event.pageIndex;
     this.pageIn = event.pageIndex;
     this.pagesizedef = event.pageSize;
@@ -231,12 +236,12 @@ export class DashboardComponent implements OnInit {
         this.dataSource = new MatTableDataSource<any>(this.listSubCatCountMttrToday);
         this.dataSource._updateChangeSubscription();
         this.dataSource.paginator = this.paginator as MatPaginator;
-        this.loader = false;
+        //this.loader = false;
       }
       else this.notificationService.warn(res.error)
     }, err => {
       this.notificationService.warn("! Fail");
-      this.loader = false;
+      //this.loader = false;
 
     })
 
@@ -269,7 +274,7 @@ export class DashboardComponent implements OnInit {
   closure_pagesizedef: number = 25;
   public closure_pIn: number = 0;
   closure_pageChanged(event: any) {
-    this.loader = true;
+    //this.loader = true;
     this.closure_pIn = event.pageIndex;
     this.closure_pageIn = event.pageIndex;
     this.closure_pagesizedef = event.pageSize;
@@ -290,12 +295,12 @@ export class DashboardComponent implements OnInit {
         this.closure_dataSource = new MatTableDataSource<any>(this.listClosureCountMttrToday);
         this.closure_dataSource._updateChangeSubscription();
         this.closure_dataSource.paginator = this.closure_paginator as MatPaginator;
-        this.loader = false;
+        //this.loader = false;
       }
       else this.notificationService.warn(res.error)
     }, err => {
       this.notificationService.warn("! Fail");
-      this.loader = false;
+      //this.loader = false;
 
     })
 
@@ -365,7 +370,8 @@ export class DashboardComponent implements OnInit {
   public barChartPlugins = [];
   public barcolors: Array<any> = [
     { // first color
-      backgroundColor: '#d7d7d7',
+      backgroundColor: '#8e2279',
+
 
     },
     { // second color
@@ -374,9 +380,10 @@ export class DashboardComponent implements OnInit {
     },
     {
       // thirdcolor
-      backgroundColor: '#8e2279',
+      backgroundColor: '#d7d7d7',
 
     }];
+
   public barChartData: ChartDataSets[] = [
     { data: [], label: 'Requests' },
     { data: [], label: 'MTTR' },
@@ -386,11 +393,12 @@ export class DashboardComponent implements OnInit {
   totalMttr : string;
   GetCountOverYear() {
     this.onsiteService.GetCountOverYear().subscribe(response => {
-      
+
       let _data = response.data;
       this.totalMttr = response.totalMtrr;
       this.totalRequests=response.totalRequests;
       _data.forEach(element => {
+
         this.barChartLabels.push(element.month);
         this.barChartData[0].data.push(element.requestCount);
         this.barChartData[1].data.push(element.mttr);

@@ -71,7 +71,7 @@ mat-icon,.percentage{
 }
 .detailschartblocks {
   border-right: 1px solid #e1e1e1;
-  width: 33%;
+  width: 50%;
   height: 60px;
   float: left;
 
@@ -95,14 +95,15 @@ mat-icon,.percentage{
   color: #333;
 }
 .lblbigtxt {
-  font-size: 31px;
+  font-size: 25px;
   width: 100%;
   float: left;
   text-align: center;
   color: #3a3a3a;
 }
 .lblbigtxtunder {
-  font-size: 16px;
+  font-size: 20px;
+  font-weight: 500;
   width: 100%;
   float: left;
   text-align: center;
